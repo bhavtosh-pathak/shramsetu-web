@@ -13,6 +13,7 @@ import { notFound, errorHandler } from './middleware/errors.js';
 
 if (!process.env.JWT_SECRET) { console.error('JWT_SECRET is missing in server/.env'); process.exit(1); }
 const app = express();
+app.set('trust proxy', 1);
 app.use(helmet());
 const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173').split(',').map(v => v.trim().replace(/\/$/, '')).filter(Boolean);
 const isLocalDev = origin => process.env.NODE_ENV !== 'production' && /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(origin);
